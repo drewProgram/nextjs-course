@@ -8,13 +8,55 @@ Install dependencies to use TypeScript:
 - Change extensions to .tsx
 
 ## Concepts
-Main concepts of this framework
+Main concepts of this framework.
+
+Flow: Browser <-> Next <-> Back-end
 
 ### Routes
 Every folder or file created inside the folder pages will become a route, unless the name starts with _. Eg: a file named search.tsx will become a route /search and a file named products.tsx inside a folder named catalog (pages/catalog/products.tsx) can be accessed at /catalog/products.
 
 #### Dynamic Routing
 You can access a dynamic route by naming the file as [].tsx. If you type a name inside the [], you can access this information via router.
+
+### Data Fetch
+There are some ways to fetch data from an outside source.
+
+#### Client side fetching
+Usual fetch, like in normal React. This approach is that is javascript only, so just use this when you don't need that the google's search engine find this data.
+
+```js
+const [recommendedProducts, setRecommendedProducts] = useState<IProduct[]>([]);
+
+useEffect(() => {
+  // it can also be axios
+  fetch('http://localhost:3333/recommended').then(response => {
+    response.json().then(data => {
+      setRecommendedProducts(data);
+    })
+  });
+}, []);
+```
+
+#### Server Side Rendering
+With server side rendering you receive the data you need to use as props. Only use this when you have to fetch a data which is necessary to appear to the search engine.
+```js
+// at the component function declaration
+export default function Home({ recommendedProducts }: IHomeProps){...}
+
+// after the component function
+export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
+  const response = await fetch('http://localhost:3333/recommended');
+  const recommendedProducts = await response.json();
+
+  return {
+    props: {
+      recommendedProducts
+    }
+  }
+}
+```
+
+#### Static Site Generation
 
 ## Extra
 ### Styled Components
