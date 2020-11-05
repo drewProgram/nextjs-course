@@ -59,6 +59,26 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
 ```
 
 #### Static Site Generation
+Used when the page does not require big updates. Generates a .html with all the necessary info to be shown to the user. After the html generation, it won't make any new api requests, because all the needed requests are done in the build process.
+
+```js
+// at the component function declaration
+export default function Top10({ products }) {...}
+
+// after the component function
+export const getStaticProps: GetStaticProps<ITop10Props> = async (context) => {
+  const response = await fetch('http://localhost:3333/products');
+  const products = await response.json();
+
+  return {
+    props: {
+      products
+    },
+    // time to the page update (in seconds)
+    revalidate: 5,
+  }
+}
+```
 
 ## Extra
 ### Styled Components
