@@ -40,6 +40,8 @@ useEffect(() => {
 #### Server Side Rendering
 With server side rendering you receive the data you need to use as props. Only use this when you have to fetch a data which is necessary to appear to the search engine.
 ```js
+import { GetServerSideProps } from 'next';
+
 // at the component function declaration
 export default function Home({ recommendedProducts }: IHomeProps){...}
 
