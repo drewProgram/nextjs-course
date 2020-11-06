@@ -114,3 +114,14 @@ const AddToCartModal = dynamic(
 ## Extra
 ### Styled Components
 In order to use styled-components you have to create a babel.config.js filem configurate it, install the plugin `babel-plugin-styled-components` and create a file _document.tsx inside the pages folder.
+
+## CMS
+- Prismic for landing pages
+- Ghost for blogs
+- Contentful for huge projects
+
+### Prismic
+- UID - Id created by the user
+
+#### Dependencies
+- `yarn add prismic-javascript prismic-dom`
